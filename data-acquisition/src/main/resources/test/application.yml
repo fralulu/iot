@@ -1,0 +1,197 @@
+server:
+  port: 8531
+  context-path: /api
+  tomcat:
+    max-threads: 500
+    uri-encoding: UTF-8
+
+# 对应upms 配置的系统key
+application:
+  key: business
+
+## token 有效时间 默认120 分钟
+#token.expired: 120
+
+## 当token剩余时间小于该时间时 刷新token 默认30分钟，应小于token.expired的值
+#token.residual.expired: 30
+
+## 排除token认证的url前缀， 多个使用逗号隔开
+#exclude.auth.token.url.prefix: /api/user,/api/dictionary
+
+########################mysql#############################################
+#test
+#jdbc:
+#  driverClassName: com.mysql.jdbc.Driver
+#  url: jdbc:mysql://192.168.31.157:3306/platformpackage?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=true
+#  port: 3306
+#  username: root
+#  password: 123456
+#
+#dbType: mysql
+
+########################oracle#############################################
+jdbc:
+  driverClassName: oracle.jdbc.driver.OracleDriver
+  url: jdbc:oracle:thin:@192.168.37.18:1521/XE
+  port: 1521
+  username: DATA_ACQUISITION
+  password: 123456
+
+dbType: oracle
+
+########################sqlserver#############################################
+#jdbc:
+#  driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#  url: jdbc:sqlserver://192.168.40.89;database=platform;integratedSecurity=false
+#  port: 1433
+#  username: sa
+#  password: 88888888
+#
+#dbType: sqlserver
+
+##############################################mybatis config#######################
+mybatis:
+  basePackage: com.infore.**.mapper
+  mapperLocations: classpath*:/mapper/**/*.xml
+
+##############################################DruidDataSource#######################
+druid:
+  initialSize: 5
+  minIdle: 5
+  maxActive: 300
+  maxWait: 60000
+  removeAbandoned: true
+  removeAbandonedTimeout: 1800
+  testWhileIdle: true
+  testOnBorrow: false
+  poolPreparedStatements: true
+  maxPoolPreparedStatementPerConnectionSize: 50
+
+###############################################dubbo################################
+dubbo:
+  application: platform-upms
+  registry: 192.168.37.6:8001
+  protocol: 8099
+
+################################################redis cache#######################
+redis:
+  maxTotal: 200
+  node1.host: 192.168.37.6
+  node1.port: 8000
+  node1.password:
+
+################################## sms 已配置默认值，不使用可删除配置 #####################
+sms:
+  url: http://yunpian.com/v1/sms/send.json
+  apikey: a3f77268bef45e5fe305a57a4d5becf5
+  daily:
+    tims: 5
+
+################################## 登录密码输入错误最大次数 默认为3 #####################
+password.error.max.times: 3
+
+################################## 用户相关配置 #####################
+user:
+  max.upload.times: -1 # 用户每天上传文件最大数量 默认为100 -1为不限制
+  max.page.size: 50 # 分页查询 每页条数限制
+  multi.login: true # 允许用户多端登录 默认为true（允许），当允许用户多端登录时可删除该配制
+
+#file limit
+#上传文件大小设置
+spring.http.multipart:
+  maxFileSize: 20Mb
+  maxRequestSize: 20Mb
+
+# 文件上传本地存储路径
+upload.file.path: /home/xinggh/app/nginx/html/file/
+#upload.file.path: E:/file/
+file.url: http://192.168.37.6:8088/file/
+
+###############################################log path################################
+logging:
+  config: classpath:log4j2.xml
+
+##################################################################################################
+#############################  以下是可选，只有enable设置为true时才启用      ###################################
+#############################              不用可以删除                                    ###################################
+##################################################################################################
+
+############################## swagger ###########################
+swagger:
+  enable: true
+
+############################## 是否初始化系统配置缓存 ###########################
+init:
+  config.enable: false
+
+############################## 是否开启操作日志记录 ###########################
+operation:
+  log.enable: true
+
+############################## netty socketio ###########################
+socketio:
+  port: 8092
+  auth: true # 是否开启连接socket登录认证
+
+########################### 富文本url 配置 rich text urls,多个url要使用逗号分隔###########
+#例子：richTextUrls： /api/xxx/,/api/yyy/
+#richTextUrls: ''
+
+############################ libre office 地址，文件预览时把word等转化为pdf预览    ###########################
+libre:
+  office:
+    #dir: D:\Program Files\LibreOffice
+    dir: /opt/libreoffice6.0
+    port: 8008
+
+############################ ftp or sftp########################
+ftp:
+   userName: root
+   passowrd: 123456
+   host: 192.168.31.211
+   port: 22
+   sftp:
+      timeOut: 50000
+      aliveMax: 10
+      #可以为空
+      privatekeyPath:
+      #可以为空
+      passphrase:
+      #可以为空
+      fileNameEncoding:
+############################# elasticsearch ######################
+elasticsearch:
+  cluster-nodes: 192.168.37.6:8082 #192.168.37.3:9300
+  cluster-name: elasticsearch
+
+############################## mail配置默认值 ########################
+mail:
+  enable: false
+  host: mail.infore.com
+  port: 25
+  user: xinggh@infore.com
+  password:
+  backpwd:
+    title: 找回密码
+    content: 【盈峰环境】您的验证码是#EMAIL_CODE#。如非本人操作，请忽略本邮件
+############################## activiti ###########################
+activiti:
+  databaseSchemaUpdate: true #true #create-drop #drop-create
+  deploymentResources: classpath*:/processes/demo/demo_process_leave.bpmn
+  jobExecutorActivate: false
+
+############################netty##############################
+#数据接收端口
+netty:
+   #receivePort: 51032
+   receivePort: 8530
+   decoderMaxLength: 10240
+   forwardIP: 192.168.171.118
+   forwardPort: 51050
+############################scheduler job#######################
+scheduler:
+    saveUploadDataCron : 0/10 * * * * ?
+    savePolRealDataCron : 0/15 * * * * ?
+    
+
+

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.infore.dataacquisition.datahandler.mapper.StationMapper">
+  <resultMap id="BaseResultMap" type="com.infore.dataacquisition.datahandler.model.entity.Station">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="STATION_NAME" jdbcType="VARCHAR" property="stationName" />
+    <result column="STATION_ABBR" jdbcType="VARCHAR" property="stationAbbr" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="BUILD_TIME" jdbcType="DATE" property="buildTime" />
+    <result column="DISCRIB" jdbcType="VARCHAR" property="discrib" />
+    <result column="LONGITUDE" jdbcType="VARCHAR" property="longitude" />
+    <result column="LATITUDE" jdbcType="VARCHAR" property="latitude" />
+    <result column="ENTER_ID" jdbcType="DECIMAL" property="enterId" />
+    <result column="ENTER_NAME" jdbcType="VARCHAR" property="enterName" />
+    <result column="STATION_NUMBER" jdbcType="VARCHAR" property="stationNumber" />
+    <result column="SORT" jdbcType="DECIMAL" property="sort" />
+    <result column="ADM_ID" jdbcType="DECIMAL" property="admId" />
+    <result column="STATIONTYPE_CODE" jdbcType="VARCHAR" property="stationtypeCode" />
+    <result column="FREQUENCY" jdbcType="DECIMAL" property="frequency" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, STATION_NAME, STATION_ABBR, ADDRESS, BUILD_TIME, DISCRIB, LONGITUDE, LATITUDE, 
+    ENTER_ID, ENTER_NAME, STATION_NUMBER, ADM_ID, SORT, STATIONTYPE_CODE,FREQUENCY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_BAS_STATION
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_BAS_STATION
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.infore.dataacquisition.datahandler.model.entity.Station">
+  	<selectKey resultType="INTEGER" order="BEFORE" keyProperty="id">  
+       SELECT SEQ_WP.NEXTVAL as id from DUAL
+   </selectKey> 
+    insert into T_BAS_STATION (ID, STATION_NAME, STATION_ABBR, 
+      ADDRESS, BUILD_TIME, DISCRIB, 
+      LONGITUDE, LATITUDE, ENTER_ID, 
+      ENTER_NAME, STATION_NUMBER, SORT, 
+      STATIONTYPE_CODE)
+    values (#{id,jdbcType=DECIMAL}, #{stationName,jdbcType=VARCHAR}, #{stationAbbr,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{buildTime,jdbcType=DATE}, #{discrib,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{enterId,jdbcType=DECIMAL}, 
+      #{enterName,jdbcType=VARCHAR}, #{stationNumber,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, 
+      #{stationtypeCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.infore.dataacquisition.datahandler.model.entity.Station">
+  	<selectKey resultType="INTEGER" order="BEFORE" keyProperty="id">  
+       SELECT SEQ_WP.NEXTVAL as id from DUAL
+   </selectKey>
+    insert into T_BAS_STATION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+       <if test="id != null">
+        ID,
+      </if>
+      <if test="stationName != null">
+        STATION_NAME,
+      </if>
+      <if test="stationAbbr != null">
+        STATION_ABBR,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="buildTime != null">
+        BUILD_TIME,
+      </if>
+      <if test="discrib != null">
+        DISCRIB,
+      </if>
+      <if test="longitude != null">
+        LONGITUDE,
+      </if>
+      <if test="latitude != null">
+        LATITUDE,
+      </if>
+      <if test="enterId != null">
+        ENTER_ID,
+      </if>
+      <if test="enterName != null">
+        ENTER_NAME,
+      </if>
+      <if test="stationNumber != null">
+        STATION_NUMBER,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="stationtypeCode != null">
+        STATIONTYPE_CODE,
+      </if>
+      <if test="admId != null">
+        ADM_ID,
+      </if>
+      <if test="frequency != null">
+        FREQUENCY,
+      </if>
+      <if test="linkState != null">
+        LINK_STATE,
+      </if>
+      <if test="overState != null">
+        OVER_STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+       <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="stationName != null">
+        #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAbbr != null">
+        #{stationAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildTime != null">
+        #{buildTime,jdbcType=DATE},
+      </if>
+      <if test="discrib != null">
+        #{discrib,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="enterId != null">
+        #{enterId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterName != null">
+        #{enterName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationNumber != null">
+        #{stationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="stationtypeCode != null">
+        #{stationtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+         #{admId,jdbcType=DECIMAL},
+      </if>
+      <if test="frequency != null">
+         #{frequency,jdbcType=DECIMAL},
+      </if>
+      <if test="linkState != null">
+         #{linkState,jdbcType=DECIMAL},
+      </if>
+      <if test="overState != null">
+         #{overState,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.infore.dataacquisition.datahandler.model.entity.Station">
+    update T_BAS_STATION
+    <set>
+      <if test="stationName != null">
+        STATION_NAME = #{stationName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationAbbr != null">
+        STATION_ABBR = #{stationAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="buildTime != null">
+        BUILD_TIME = #{buildTime,jdbcType=DATE},
+      </if>
+      <if test="discrib != null">
+        DISCRIB = #{discrib,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="enterId != null">
+        ENTER_ID = #{enterId,jdbcType=DECIMAL},
+      </if>
+      <if test="enterName != null">
+        ENTER_NAME = #{enterName,jdbcType=VARCHAR},
+      </if>
+      <if test="stationNumber != null">
+        STATION_NUMBER = #{stationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="stationtypeCode != null">
+        STATIONTYPE_CODE = #{stationtypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="admId != null">
+        ADM_ID = #{admId,jdbcType=DECIMAL},
+      </if>
+      <if test="frequency != null">
+        FREQUENCY = #{frequency,jdbcType=DECIMAL},
+      </if>
+      <if test="linkState != null">
+        LINK_STATE = #{linkState,jdbcType=DECIMAL},
+      </if>
+      <if test="overState != null">
+        OVER_STATE = #{overState,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.infore.dataacquisition.datahandler.model.entity.Station">
+    update T_BAS_STATION
+    set STATION_NAME = #{stationName,jdbcType=VARCHAR},
+      STATION_ABBR = #{stationAbbr,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      BUILD_TIME = #{buildTime,jdbcType=DATE},
+      DISCRIB = #{discrib,jdbcType=VARCHAR},
+      LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=VARCHAR},
+      ENTER_ID = #{enterId,jdbcType=DECIMAL},
+      ENTER_NAME = #{enterName,jdbcType=VARCHAR},
+      STATION_NUMBER = #{stationNumber,jdbcType=VARCHAR},
+      SORT = #{sort,jdbcType=DECIMAL},
+      STATIONTYPE_CODE = #{stationtypeCode,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="selectByStationIds" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_BAS_STATION
+    where ID in (${ids})
+  </select>
+  <select id="selectByAdmIds" parameterType="string" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_BAS_STATION
+    where ADM_ID in (${ids})
+  </select>
+  <!-- 查询该角色下所有站点 -->
+  <select id="selectAllStations" resultMap="BaseResultMap" parameterType="int">
+  	select 
+    <include refid="Base_Column_List" />
+    from T_BAS_STATION
+  </select>
+  
+  <!-- 查询所有站点 -->
+  <select id="selectAllStationsN" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from T_BAS_STATION
+  </select>
+  
+  <!-- stationFactor中间表插入数据 -->
+  <!-- <insert id="insertStationFactor">
+  	insert into T_OTH_STATIONFACTOR
+  	(STATION_ID,FACTOR_ID) values (#{0},#{1})
+  </insert>
+  <delete id="deleteStationFactorByStationId" parameterType="int">
+  	delete from T_OTH_STATIONFACTOR
+  	where station_id = #{stationId}
+  </delete>
+  <delete id="deleteStationFactorByStationIds">
+  	delete from T_OTH_STATIONFACTOR
+  	where station_id in (${ids})
+  </delete>
+  <delete id="deleteByPrimaryKeys">
+  	delete from T_BAS_STATION
+    where ID in (${ids})
+  </delete>
+  <select id="selectAllStationsByFactorRole" resultMap="BaseResultMap">
+  
+  	SELECT
+	<include refid="Base_Column_List" />
+	FROM
+		(
+			SELECT
+				<include refid="Base_Column_List" />
+			FROM
+				T_BAS_STATION ts
+			LEFT JOIN T_OTH_ROLESTATION trs ON TS. ID = TRS.STATION_ID
+			WHERE
+				TRS.ROLE_ID = #{0}
+		) ta
+	LEFT JOIN T_OTH_STATIONFACTOR tsf ON TA. ID = TSF.STATION_ID
+	WHERE
+		TSF.FACTOR_ID = #{1}
+  </select> -->
+  
+</mapper>

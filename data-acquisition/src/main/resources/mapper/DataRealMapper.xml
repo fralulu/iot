@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.infore.dataacquisition.datahandler.mapper.DataRealMapper">
+  <resultMap id="BaseResultMap" type="com.infore.dataacquisition.datahandler.model.entity.DataReal">
+    <id column="STATION_ID" jdbcType="DECIMAL" property="stationId" />
+    <id column="FACTOR_CODE" jdbcType="OTHER" property="factorCode" />
+    <result column="SEND_TIME" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="VALUE" jdbcType="DECIMAL" property="value" />
+    <result column="FACTOR_NAME" jdbcType="OTHER" property="factorName" />
+    <result column="STATION_NAME" jdbcType="OTHER" property="stationName" />
+    <result column="ENTER_NAME" jdbcType="OTHER" property="enterName" />
+    <result column="STATE" jdbcType="OTHER" property="state" />
+    <result column="SIGN" jdbcType="OTHER" property="sign" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    STATION_ID, FACTOR_CODE, SEND_TIME, RECEIVE_TIME, VALUE, FACTOR_NAME, STATION_NAME, 
+    ENTER_NAME, STATE, SIGN
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_DATA_REAL
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+      and FACTOR_CODE = #{factorCode,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from T_DATA_REAL
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+      and FACTOR_CODE = #{factorCode,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="com.infore.dataacquisition.datahandler.model.entity.DataReal">
+    insert into T_DATA_REAL (STATION_ID, FACTOR_CODE, SEND_TIME, 
+      RECEIVE_TIME, VALUE, FACTOR_NAME, 
+      STATION_NAME, ENTER_NAME, STATE, 
+      SIGN)
+    values (#{stationId,jdbcType=INTEGER}, #{factorCode,jdbcType=OTHER}, #{sendTime,jdbcType=TIMESTAMP}, 
+      #{receiveTime,jdbcType=TIMESTAMP}, #{value,jdbcType=DOUBLE}, #{factorName,jdbcType=OTHER}, 
+      #{stationName,jdbcType=OTHER}, #{enterName,jdbcType=OTHER}, #{state,jdbcType=OTHER}, 
+      #{sign,jdbcType=OTHER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.infore.dataacquisition.datahandler.model.entity.DataReal">
+    insert into T_DATA_REAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stationId != null">
+        STATION_ID,
+      </if>
+      <if test="factorCode != null">
+        FACTOR_CODE,
+      </if>
+      <if test="sendTime != null">
+        SEND_TIME,
+      </if>
+      <if test="receiveTime != null">
+        RECEIVE_TIME,
+      </if>
+      <if test="value != null">
+        VALUE,
+      </if>
+      <if test="factorName != null">
+        FACTOR_NAME,
+      </if>
+      <if test="stationName != null">
+        STATION_NAME,
+      </if>
+      <if test="enterName != null">
+        ENTER_NAME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="sign != null">
+        SIGN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stationId != null">
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="factorCode != null">
+        #{factorCode,jdbcType=OTHER},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="factorName != null">
+        #{factorName,jdbcType=OTHER},
+      </if>
+      <if test="stationName != null">
+        #{stationName,jdbcType=OTHER},
+      </if>
+      <if test="enterName != null">
+        #{enterName,jdbcType=OTHER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=OTHER},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=OTHER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.infore.dataacquisition.datahandler.model.entity.DataReal">
+    update T_DATA_REAL
+    <set>
+      <if test="sendTime != null">
+        SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null">
+        RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="value != null">
+        VALUE = #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="factorName != null">
+        FACTOR_NAME = #{factorName,jdbcType=OTHER},
+      </if>
+      <if test="stationName != null">
+        STATION_NAME = #{stationName,jdbcType=OTHER},
+      </if>
+      <if test="enterName != null">
+        ENTER_NAME = #{enterName,jdbcType=OTHER},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=OTHER},
+      </if>
+      <if test="sign != null">
+        SIGN = #{sign,jdbcType=OTHER},
+      </if>
+    </set>
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+      and FACTOR_CODE = #{factorCode,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.infore.dataacquisition.datahandler.model.entity.DataReal">
+    update T_DATA_REAL
+    set SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+      RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+      VALUE = #{value,jdbcType=DOUBLE},
+      FACTOR_NAME = #{factorName,jdbcType=OTHER},
+      STATION_NAME = #{stationName,jdbcType=OTHER},
+      ENTER_NAME = #{enterName,jdbcType=OTHER},
+      STATE = #{state,jdbcType=OTHER},
+      SIGN = #{sign,jdbcType=OTHER}
+    where STATION_ID = #{stationId,jdbcType=DECIMAL}
+      and FACTOR_CODE = #{factorCode,jdbcType=OTHER}
+  </update>
+  <select id="selectListByPagination" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_DATA_REAL
+    <where>
+      <if test="stationId != null">
+        STATION_ID = #{stationId,jdbcType=INTEGER}
+      </if>
+      <if test="factorCode != null">
+          and FACTOR_CODE = #{factorCode,jdbcType=OTHER}
+      </if>
+      <if test="sendTime != null">
+          and SEND_TIME = #{sendTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="receiveTime != null">
+          and RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="value != null">
+          and VALUE = #{value,jdbcType=DOUBLE}
+      </if>
+      <if test="factorName != null">
+          and FACTOR_NAME = #{factorName,jdbcType=OTHER}
+      </if>
+      <if test="stationName != null">
+          and STATION_NAME = #{stationName,jdbcType=OTHER}
+      </if>
+      <if test="enterName != null">
+          and ENTER_NAME = #{enterName,jdbcType=OTHER}
+      </if>
+      <if test="state != null">
+          and STATE = #{state,jdbcType=OTHER}
+      </if>
+      <if test="sign != null">
+          and SIGN = #{sign,jdbcType=OTHER}
+      </if>
+    </where>
+  </select>
+  <select id="selectListByEntity" parameterType="com.infore.dataacquisition.datahandler.model.entity.DataReal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_DATA_REAL
+    <where>
+      <if test="stationId != null">
+        STATION_ID = #{stationId,jdbcType=INTEGER}
+      </if>
+      <if test="factorCode != null">
+          and FACTOR_CODE = #{factorCode,jdbcType=OTHER}
+      </if>
+      <if test="sendTime != null">
+          and SEND_TIME = #{sendTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="receiveTime != null">
+          and RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="value != null">
+          and VALUE = #{value,jdbcType=DOUBLE}
+      </if>
+      <if test="factorName != null">
+          and FACTOR_NAME = #{factorName,jdbcType=OTHER}
+      </if>
+      <if test="stationName != null">
+          and STATION_NAME = #{stationName,jdbcType=OTHER}
+      </if>
+      <if test="enterName != null">
+          and ENTER_NAME = #{enterName,jdbcType=OTHER}
+      </if>
+      <if test="state != null">
+          and STATE = #{state,jdbcType=OTHER}
+      </if>
+      <if test="sign != null">
+          and SIGN = #{sign,jdbcType=OTHER}
+      </if>
+    </where>
+  </select>
+  
+   <insert id="batchAddDataReal" parameterType="java.util.List"  useGeneratedKeys="false">
+	 insert into T_DATA_REAL ( STATION_ID, FACTOR_CODE, SEND_TIME, RECEIVE_TIME, 
+	                            STATION_NAME, ENTER_NAME, FACTOR_NAME, 
+                                VALUE, STATE, SIGN)
+     SELECT A.*
+	 FROM(
+	       <foreach collection="list" item="item" index="index" separator="UNION ALL" >
+	       SELECT
+	           #{item.stationId} as STATION_ID,
+	           #{item.factorCode} as FACTOR_CODE,
+	           #{item.sendTime} as SEND_TIME,
+	           #{item.receiveTime} as RECEIVE_TIME,
+	           #{item.stationName} as STATION_NAME,
+	           #{item.enterName} as ENTER_NAME,
+	           #{item.factorName} as FACTOR_NAME,
+	           #{item.value} as VALUE,
+	           #{item.state} as STATE,
+	           #{item.sign} as SIGN
+	       FROM dual
+	  </foreach>
+	) A
+	
+   </insert>
+   
+   <update id="batchUpdateDataReal" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+			UPDATE T_DATA_REAL
+			<set>
+				<if test="item.receiveTime!=null">RECEIVE_TIME =  #{item.receiveTime},</if>
+				<if test="item.value!=null"> VALUE = #{item.value},</if>
+				<if test="item.factorName!=null">FACTOR_NAME = #{item.factorName},</if>
+				 <if test="item.stationName!=null">STATION_NAME =  #{item.stationName},</if>
+				 <if test="item.enterName!=null"> ENTER_NAME = #{item.enterName},</if>
+				<if test="item.state!=null">STATE = #{item.state},</if>
+				<if test="item.sign!=null">SIGN = #{item.sign}</if>
+
+			</set>
+			WHERE STATION_ID = #{item.stationId}
+	             and FACTOR_CODE = #{item.factorCode} 
+	             and SEND_TIME = #{item.sendTime}
+		</foreach>
+	</update>
+  
+  
+  
+</mapper>

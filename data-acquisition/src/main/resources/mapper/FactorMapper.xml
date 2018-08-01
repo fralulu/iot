@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.infore.dataacquisition.datahandler.mapper.FactorMapper">
+  <resultMap id="BaseResultMap" type="com.infore.dataacquisition.datahandler.model.entity.Factor">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="FACTOR_NAME" jdbcType="VARCHAR" property="factorName" />
+    <result column="FACTOR_CODE" jdbcType="VARCHAR" property="factorCode" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="UPPER" jdbcType="DECIMAL" property="upper" />
+    <result column="FLOWER" jdbcType="DECIMAL" property="flower" />
+    <result column="DISCRIB" jdbcType="VARCHAR" property="discrib" />
+    <result column="ACCURACY" jdbcType="DECIMAL" property="accuracy" />
+    <result column="SORT" jdbcType="DECIMAL" property="sort" />
+    <result column="POLLUTION_FACTOR" jdbcType="DECIMAL" property="pollutionFactor" />
+    <result column="FACTORTYPE_CODE" jdbcType="VARCHAR" property="factortypeCode" />
+    <result column="CREATE_USER" jdbcType="DECIMAL" property="createUser" />
+    <result column="TOTAL_COUNT" jdbcType="DECIMAL" property="totalCount" />
+    <result column="FACTOR_CODE_OLD" jdbcType="VARCHAR" property="factorCodeOld" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    f.ID, f.FACTOR_NAME, f.FACTOR_CODE, f.UNIT, f.UPPER, f.FLOWER, f.DISCRIB, f.ACCURACY, f.SORT, f.POLLUTION_FACTOR, 
+    f.FACTORTYPE_CODE, f.CREATE_USER,TOTAL_COUNT,FACTOR_CODE_OLD
+  </sql>
+  
+  <!--根据站点id集获取站点对应因子 -->
+<!--   <select id="selectByStationKeys" parameterType="String" resultMap="BaseResultMap">
+   select distinct
+    <include refid="Base_Column_List" />
+    from T_BAS_FACTOR f,T_OTH_STATIONFACTOR sf
+    where f.ID=sf.FACTOR_ID and sf.STATION_ID in (${ids})
+    order by f.ID 
+  </select> -->
+  <!-- 查询污染源因子 -->
+ <!--  <select id="selectPollutionFactors" resultMap="BaseResultMap">
+  	select distinct
+  	<include refid="Base_Column_List" />
+  	 from T_BAS_FACTOR f,T_OTH_STATIONFACTOR sf,T_BAS_STATION s
+    where s.ID=sf.STATION_ID and sf.FACTOR_ID=f.ID AND POLLUTION_FACTOR = 1
+    order by f.ID  
+  </select> -->
+  <!-- 查询站点污染源因子 -->
+ <!--  <select id="selectStationPollutionFactors" parameterType="integer" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	 from T_BAS_FACTOR f,T_OTH_STATIONFACTOR sf
+    where f.ID=sf.FACTOR_ID and sf.STATION_ID = #{stationId} and POLLUTION_FACTOR = 1
+    order by f.ID  
+  </select> -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_BAS_FACTOR
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.infore.dataacquisition.datahandler.model.entity.Factor">
+    insert into T_BAS_FACTOR (ID, FACTOR_NAME, FACTOR_CODE, 
+      UNIT, UPPER, FLOWER, 
+      DISCRIB, ACCURACY, SORT, 
+      POLLUTION_FACTOR, FACTORTYPE_CODE, CREATE_USER
+      )
+    values (SEQ_WP.nextval, #{factorName,jdbcType=VARCHAR}, #{factorCode,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{upper,jdbcType=DECIMAL}, #{flower,jdbcType=DECIMAL}, 
+      #{discrib,jdbcType=VARCHAR}, #{accuracy,jdbcType=DECIMAL}, #{sort,jdbcType=DECIMAL}, 
+      #{pollutionFactor,jdbcType=DECIMAL}, #{factortypeCode,jdbcType=VARCHAR}, #{createUser,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.infore.dataacquisition.datahandler.model.entity.Factor">
+    insert into T_BAS_FACTOR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        ID,
+      <if test="factorName != null">
+        FACTOR_NAME,
+      </if>
+      <if test="factorCode != null">
+        FACTOR_CODE,
+      </if>
+      <if test="unit != null">
+        UNIT,
+      </if>
+      <if test="upper != null">
+        UPPER,
+      </if>
+      <if test="flower != null">
+        FLOWER,
+      </if>
+      <if test="discrib != null">
+        DISCRIB,
+      </if>
+      <if test="accuracy != null">
+        ACCURACY,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="pollutionFactor != null">
+        POLLUTION_FACTOR,
+      </if>
+      <if test="factortypeCode != null">
+        FACTORTYPE_CODE,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        SEQ_WP.nextval,
+      <if test="factorName != null">
+        #{factorName,jdbcType=VARCHAR},
+      </if>
+      <if test="factorCode != null">
+        #{factorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="upper != null">
+        #{upper,jdbcType=DECIMAL},
+      </if>
+      <if test="flower != null">
+        #{flower,jdbcType=DECIMAL},
+      </if>
+      <if test="discrib != null">
+        #{discrib,jdbcType=VARCHAR},
+      </if>
+      <if test="accuracy != null">
+        #{accuracy,jdbcType=DECIMAL},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="pollutionFactor != null">
+        #{pollutionFactor,jdbcType=DECIMAL},
+      </if>
+      <if test="factortypeCode != null">
+        #{factortypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.infore.dataacquisition.datahandler.model.entity.Factor">
+    update T_BAS_FACTOR
+    <set>
+      <if test="factorName != null">
+        FACTOR_NAME = #{factorName,jdbcType=VARCHAR},
+      </if>
+      <if test="factorCode != null">
+        FACTOR_CODE = #{factorCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="upper != null">
+        UPPER = #{upper,jdbcType=DECIMAL},
+      </if>
+      <if test="flower != null">
+        FLOWER = #{flower,jdbcType=DECIMAL},
+      </if>
+      <if test="discrib != null">
+        DISCRIB = #{discrib,jdbcType=VARCHAR},
+      </if>
+      <if test="accuracy != null">
+        ACCURACY = #{accuracy,jdbcType=DECIMAL},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="pollutionFactor != null">
+        POLLUTION_FACTOR = #{pollutionFactor,jdbcType=DECIMAL},
+      </if>
+      <if test="factortypeCode != null">
+        FACTORTYPE_CODE = #{factortypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=DECIMAL},
+      </if>
+      <if test="standValue != null">
+        STANDVALUE = #{standValue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.infore.dataacquisition.datahandler.model.entity.Factor">
+    update T_BAS_FACTOR
+    set FACTOR_NAME = #{factorName,jdbcType=VARCHAR},
+      FACTOR_CODE = #{factorCode,jdbcType=VARCHAR},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      UPPER = #{upper,jdbcType=DECIMAL},
+      FLOWER = #{flower,jdbcType=DECIMAL},
+      DISCRIB = #{discrib,jdbcType=VARCHAR},
+      ACCURACY = #{accuracy,jdbcType=DECIMAL},
+      SORT = #{sort,jdbcType=DECIMAL},
+      POLLUTION_FACTOR = #{pollutionFactor,jdbcType=DECIMAL},
+      FACTORTYPE_CODE = #{factortypeCode,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=DECIMAL},
+      
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <!-- jht 所有因子基本信息 -->
+  <select id="selectAllFactorsBasicInfo" resultType="map">
+  	select ID as "id" ,FACTOR_NAME as "factorName" from T_BAS_FACTOR
+  </select>
+  <!-- jht 获取因子所有信息  -->
+  <select id="selectAllFactors" resultMap="BaseResultMap">
+  	select 
+	    f.ID, f.FACTOR_NAME, f.FACTOR_CODE, f.UNIT, f.UPPER, f.FLOWER, f.DISCRIB, f.ACCURACY, f.SORT, f.POLLUTION_FACTOR, 
+	    f.FACTORTYPE_CODE, f.CREATE_USER,f.TOTAL_COUNT,f.FACTOR_CODE_OLD 
+    from T_BAS_FACTOR f
+    order by ID
+  </select>
+  <!-- txf 根据关键字查询因子条数 -->
+  <select id="factorsCount" resultType="int">
+  	select count(*) from T_BAS_FACTOR where FACTOR_NAME like '%${name}%'
+  </select>
+  <!-- txf 分页查询关键字因子 -->
+  <select id="allFactors" resultMap="BaseResultMap">
+  	 select <include refid="Base_Column_List" />  from (select t.*, ROWNUM RM from (select * from T_BAS_FACTOR) t where <![CDATA[ ROWNUM<=#{endRow} ) f   where f.RM>= #{startRow} ]]> and f.FACTOR_NAME like '%${name}%' 
+  </select>
+  <!-- txf 查询所有单位 -->
+ <!--  <select id="allUnits" resultType="infore.com.wp.datahandle.entity.Unit">
+  	 select * from T_CODE_FACTOR_UNIT 
+  </select> -->
+  <!-- 根据code查找记录 -->
+  <select id="selectByFactorCode" resultMap="BaseResultMap" parameterType="string">
+  	select 
+	    f.ID, f.FACTOR_NAME, f.FACTOR_CODE, f.UNIT, f.UPPER, f.FLOWER, f.DISCRIB, f.ACCURACY, f.SORT, f.POLLUTION_FACTOR, 
+	    f.FACTORTYPE_CODE, f.CREATE_USER
+    from T_BAS_FACTOR f
+    where FACTOR_CODE = #{code}
+  </select>
+  <!-- 批量删除 -->
+  <delete id="delByIds">
+  	delete from T_BAS_FACTOR
+  	where ID in (${ids})
+  </delete>
+  
+  <select id="searchByKey" resultMap="BaseResultMap">
+  	select 
+	    f.ID, f.FACTOR_NAME, f.FACTOR_CODE, f.UNIT, f.UPPER, f.FLOWER, f.DISCRIB, f.ACCURACY, f.SORT, f.POLLUTION_FACTOR, 
+	    f.FACTORTYPE_CODE, f.CREATE_USER
+    from T_BAS_FACTOR f
+    where f.FACTOR_NAME like '%${key}%'
+    order by ID
+  </select>
+ <!--  <select id="selectByStationId" parameterType="int" resultMap="BaseResultMap">
+  	SELECT TF.ID,TF.FACTOR_NAME,TF.FACTOR_CODE FROM T_BAS_FACTOR tf
+	LEFT JOIN T_OTH_STATIONFACTOR tsf
+	ON TF.ID = TSF.FACTOR_ID
+	WHERE TSF.STATION_ID = #{id}
+  </select> -->
+  <!-- <select id="selectByEnterId" parameterType="int" resultMap="BaseResultMap">
+  	SELECT TF.ID,TF.FACTOR_NAME,TF.FACTOR_CODE FROM T_BAS_FACTOR tf
+	LEFT JOIN T_OTH_ENTERFACTOR TEF
+	ON TF.ID = TEF.FACTOR_ID
+	WHERE TEF.ENTER_ID = #{id}
+  </select> -->
+  <select id="selectPolluFactors" resultMap="BaseResultMap">
+  	select ID,FACTOR_NAME,FACTOR_CODE 
+  	from T_BAS_FACTOR
+	where POLLUTION_FACTOR = 1
+	order by ID
+  </select>
+</mapper>
